@@ -1,12 +1,13 @@
 import React from 'react';
-import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './components/home/Home';
+import Router from './Router';
 
 const App = () => {
   return (
-    <>
-      <div>ds</div>
-      <div>dasdasd</div>
-    </>
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
   );
 };
 
