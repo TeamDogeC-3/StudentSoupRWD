@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/admin/admin-index :: headSetting}">
+
+</head>
+<body>
+<div class="container-fluid">
+    <th:block th:replace="~{admin/admin-index :: headerFragment}">
+
+    </th:block>
+    <div class="row min-vh-100 ">
+        <th:block th:replace="~{admin/admin-index :: sidebarFragment}">
+
+        </th:block>
+        <div class="col-10" style="margin: auto">
+            <row>
+                <form>
+                    <legend>학교선택으로 학과 조회하기</legend>
+                    <div class="input-group mb-2">
+                        <select class="form-select form-select-sm" th:name="schoolId" required="required">
+                            <option value="">학교 선택</option>
+                            <option th:each="school : ${schools}"
+                                    th:value="${school.id}"
+                                    th:text="${school.schoolName}">
+                            </option>
+                        </select>
+                        <button type="submit" class="btn btn-primary mb-2">검색</button>
+                    </div>
+                </form>
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr class="table-primary">
+                        <th scope="col">#</th>
+                        <th scope="col">학교명</th>
+                        <th scope="col">학과명</th>
+                        <th scope="col">학과 내 학생 수</th>
+                        <th scope="col">학과 내 게시글 수</th>
+                        <th scope="col">edit/delete</th>
+                    </tr>
+                    </thead>
+                    <th:block th:if="${!findDepartments.isEmpty()}">
+                        <tbody>
+                        <tr th:each="department : ${findDepartments}">
+                            <td th:text="${department.id}">#</td>
+                            <td th:text="${department.school.schoolName}">schoolName</td>
+                            <td th:text="${department.departmentName}">departmentName</td>
+                            <td th:text="${department.members.size()}">null</td>
+                            <td th:text="${department.boards.size()}">null</td>
+                            <td>
+                                <a th:href="@{/admin/department/edit/{departmentId}(departmentId = ${department.id})}">
+                                    <img src="/img/admin/icon/pencil.svg">
+                                </a>
+                                /
+                                <a th:href="@{/admin/department/{departmentId}(departmentId = ${department.id})}">
+                                    <img src="/img/admin/icon/trash.svg">
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </th:block>
+                    <th:block th:if="${findDepartments.isEmpty()}">
+                        <tbody>
+                        <tr>
+                            <td colspan="6" style="text-align: center"><h3> 등록된 학과가 없습니다.</h3></td>
+                        </tr>
+                        </tbody>
+                    </th:block>
+                </table>
+            </row>
+        </div>
+    </div>
+</div>
+</body>
+</html>

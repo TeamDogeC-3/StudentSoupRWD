@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/admin/admin-index :: headSetting">
+</head>
+<style>
+    .fieldError {
+        border-color: #bd2130;
+    }
+</style>
+
+<body>
+<div class="container-fluid">
+    <th:block th:replace="~{/admin/admin-index :: headerFragment}">
+    </th:block>
+    <div class="row min-vh-100 ">
+        <th:block th:replace="~{/admin/admin-index :: sidebarFragment}">
+
+        </th:block>
+        <div class="col w-50">
+            <section class="h-100 h-custom gradient-custom">
+                <div class="container py-2 h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col-6">
+                            <form role="form" action="/admin/restaurantMenu" th:object="${restaurantMenuForm}"
+                                  method="post"
+                                  enctype="multipart/form-data"
+                                  class="card card-registration card-registration-2" style="border-radius: 15px">
+                                <div class="card-body p-0">
+                                    <div class="row g-0">
+                                        <div class="col-lg-12">
+                                            <div class="p-2">
+                                                <h3 class="fw-normal mb-3" style="color: #4835d4;">메뉴 정보</h3>
+
+                                                <div class="row">
+                                                    <div class="col-md-12 mb-2 pb-2">
+                                                        <div class="form-outline">
+                                                            <label class="form-label" th:for="name">레스토랑 이름</label>
+                                                            <select id="restaurant" class="form-select" th:field="*{restaurantId}"
+                                                                    required="required">
+                                                                <option th:selected="${restaurant}"
+                                                                        th:value="${restaurant.id}"
+                                                                        th:text="${restaurant.name}">
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-12 mb-2 pb-2">
+                                                        <div class="form-outline">
+                                                            <label class="form-label" th:for="name">메뉴 이름</label>
+                                                            <input type="text" th:field="*{name}"
+                                                                   placeholder="메뉴이름을 입력하세요."
+                                                                   th:class="${#fields.hasErrors('name')}? 'form-control form-control-lg fieldError' : 'form-control form-control-lg'">
+                                                            <p style="color : red;" th:if="${#fields.hasErrors('name')}"
+                                                               th:errors="*{name}">Incorrect data</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 mb-2 pb-2">
+                                                        <select class="form-select" th:field="*{restaurantMenuCategory}"
+                                                                required="required">
+                                                            <option value="">카테고리 선택</option>
+                                                            <option th:each="category : ${menuCategory}"
+                                                                    th:value="${category}"
+                                                                    th:text="${category.restaurantMenuCategory}">
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 mb-2 pb-2">
+                                                        <div class="form-outline">
+                                                            <label class="form-label" th:for="cost">메뉴 가격</label>
+                                                            <input type="number" th:field="*{cost}"
+                                                                   placeholder="가격을 입력하세요."
+                                                                   th:class="${#fields.hasErrors('cost')}? 'form-control form-control-lg fieldError' : 'form-control form-control-lg'">
+                                                            <p style="color : red;" th:if="${#fields.hasErrors('cost')}"
+                                                               th:errors="*{cost}">Incorrect data</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 mb-2 pb-2">
+                                                        <div class="form-outline">
+                                                            <div class="row align-items-center py-3">
+                                                                <div class="col-md-5 ps-5">
+                                                                    <h6 class="mb-0">restaurant Menu Image</h6>
+                                                                </div>
+                                                                <div class="col-md-7 pe-5">
+                                                                    <input type="file"
+                                                                           class="form-control form-control-sm"
+                                                                           name="multipartFile">
+                                                                    <div class="small text-muted mt-2">Upload your
+                                                                        profile Image.
+                                                                        Max file size 10MB
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 m-2 p-2 text-center">
+                                                            <div class="btn btn-light btn-sm">
+                                                                <input type="submit" name="signup"
+                                                                       class="btn btn-primary btn-sm"
+                                                                       value="레스토랑 메뉴 등록">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+</body>
+</html>

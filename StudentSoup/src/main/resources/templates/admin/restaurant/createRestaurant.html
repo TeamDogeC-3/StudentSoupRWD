@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/admin/admin-index :: headSetting">
+</head>
+<style>
+    .fieldError {
+        border-color: #bd2130;
+    }
+</style>
+
+<body>
+<div class="container-fluid">
+    <th:block th:replace="~{/admin/admin-index :: headerFragment}">
+    </th:block>
+    <div class="row min-vh-100 ">
+        <th:block th:replace="~{/admin/admin-index :: sidebarFragment}">
+
+        </th:block>
+        <div class="col w-100">
+            <section class="h-100 h-custom gradient-custom">
+                <div class="container py-2 h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col-12">
+                            <form role="form" action="/admin/restaurant" th:object="${restaurantForm}" method="post"
+                                  enctype="multipart/form-data"
+                                  class="card card-registration card-registration-2" style="border-radius: 15px">
+                                <div class="card-body p-0">
+                                    <div class="row g-0">
+                                        <div class="col-lg-12">
+                                            <div class="p-2">
+                                                <h3 class="fw-normal mb-3" style="color: #4835d4;">레스토랑 정보</h3>
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-2 pb-2">
+                                                        <div class="form-outline" >
+                                                            <label class="form-label" th:for="name">레스토랑 이름</label>
+                                                            <input type="text" th:field="*{name}"
+                                                                   placeholder="이름을 입력하세요."
+                                                                   th:class="${#fields.hasErrors('name')}? 'form-control form-control-lg fieldError' : 'form-control form-control-lg'">
+                                                            <p style="color : red;" th:if="${#fields.hasErrors('name')}"
+                                                               th:errors="*{name}">Incorrect data</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 mb-2 pb-2">
+                                                        <select class="form-select" th:field="*{restaurantCategory}" required="required">
+                                                            <option value="">카테고리 선택</option>
+                                                            <option th:each="category : ${restaurantCategory}"
+                                                                    th:value="${category}"
+                                                                    th:text="${category.restaurantCategory}">
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-12 mb-2 pb-2">
+                                                        <div class="form-outline" >
+                                                            <label class="form-label" th:for="address">음식점 주소</label>
+                                                            <input type="text" th:field="*{address}"
+                                                                   placeholder="주소를 입력하세요."
+                                                                   th:class="${#fields.hasErrors('address')}? 'form-control form-control-lg fieldError' : 'form-control form-control-lg'">
+                                                            <p style="color : red;" th:if="${#fields.hasErrors('address')}"
+                                                               th:errors="*{address}">Incorrect data</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-2 pb-2">
+                                                        <div class="form-outline">
+                                                            <label class="form-label" th:for="startTime">시작 시간</label>
+                                                            <input type="time" th:field="*{startTime}"
+                                                                   th:class="'form-control form-control-lg'">
+                                                            <p style="color : red;" th:if="${#fields.hasErrors('startTime')}"
+                                                               th:errors="*{startTime}">Incorrect data</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6 mb-2 pb-2">
+                                                        <div class="form-outline">
+                                                            <label class="form-label" th:for="endTime">종료 시간</label>
+                                                            <input type="time" th:field="*{endTime}"
+                                                                   th:class="'form-control form-control-lg'">
+                                                            <p style="color : red;" th:if="${#fields.hasErrors('endTime')}"
+                                                               th:errors="*{endTime}">Incorrect data</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-12 mb-2 pb-2">
+                                                        <select class="form-select" th:field="*{isDelivery}" required="required">
+                                                            <option value="">배달여부 선택</option>
+                                                            <option th:value="'Y'"
+                                                                    th:text="'배달 가능'">
+                                                            </option>
+                                                            <option th:value="'N'"
+                                                                    th:text="'배달 불가능'">
+
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md mb-2 pb-2">
+                                                        <select class="form-select" th:field="*{schoolId}"
+                                                                required="required">
+                                                            <option value="">학교 선택</option>
+                                                            <option th:each="school : ${schools}"
+                                                                    th:value="${school.id}"
+                                                                    th:text="${school.schoolName}">
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 mb-2 pb-2">
+                                                        <div class="form-outline">
+                                                            <label class="form-label" th:for="coordinate">좌표</label>
+                                                            <input type="text" th:field="*{coordinate}"
+                                                                   class="form-control form-control-lg"
+                                                                   placeholder="**.****,**.****">
+                                                            <p style="color : red;" th:if="${#fields.hasErrors('coordinate')}"
+                                                               th:errors="*{coordinate}">Incorrect data</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 mb-2 pb-2">
+                                                        <div class="form-outline">
+                                                            <label class="form-label" th:for="tel">연락처</label>
+                                                            <input type="text" th:field="*{tel}"
+                                                                   class="form-control form-control-lg"
+                                                                   placeholder="010-0000-0000">
+                                                            <p style="color : red;" th:if="${#fields.hasErrors('tel')}"
+                                                               th:errors="*{tel}">Incorrect data</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 mb-2 pb-2">
+                                                        <div class="form-outline">
+                                                            <label class="form-label" th:for="tag">태그</label>
+                                                            <input type="text" th:field="*{tag}"
+                                                                   class="form-control form-control-lg"
+                                                                   placeholder="라면, 밥, 돈까스">
+                                                            <p style="color : red;" th:if="${#fields.hasErrors('tag')}"
+                                                               th:errors="*{tag}">Incorrect data</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-12 mb-2 pb-2">
+                                                        <div class="form-outline">
+                                                            <label class="form-label" th:for="detail">세부사항</label>
+                                                            <br>
+                                                            <textarea type="text" th:field="*{detail}"
+                                                                      placeholder="세부사항을 입력하세요." rows="10"
+                                                                      cols="125"></textarea>
+                                                            <div class="row align-items-center py-3">
+                                                                <div class="col-md-5 ps-5">
+                                                                    <h6 class="mb-0">restaurant Image</h6>
+                                                                </div>
+                                                                <div class="col-md-7 pe-5">
+                                                                    <input type="file"
+                                                                           multiple="multiple"
+                                                                           class="form-control form-control-sm"
+                                                                           name="multipartFileList">
+                                                                    <div class="small text-muted mt-2">Upload your
+                                                                        profile Image.
+                                                                        Max file size 10MB
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-12 m-2 p-2 text-center">
+                                                            <div class="btn btn-light btn-sm">
+                                                                <input type="submit" name="signup"
+                                                                       class="btn btn-primary btn-sm"
+                                                                       value="레스토랑 등록">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+</body>
+</html>

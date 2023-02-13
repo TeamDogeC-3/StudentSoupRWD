@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/admin/admin-index :: headSetting}">
+
+</head>
+<body>
+<div class="container-fluid">
+    <th:block th:replace="~{admin/admin-index :: headerFragment}">
+
+    </th:block>
+    <div class="row min-vh-100 ">
+        <th:block th:replace="~{admin/admin-index :: sidebarFragment}">
+
+        </th:block>
+        <div class="col-10" style="margin: auto">
+            <row>
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr class="table-primary">
+                        <th scope="col">#</th>
+                        <th scope="col">id</th>
+                        <th scope="col">pwd</th>
+                        <th scope="col">nickname</th>
+                        <th scope="col">gender</th>
+                        <th scope="col">email</th>
+                        <th scope="col">registrationDate</th>
+                        <th scope="col">imageName</th>
+                        <th scope="col">memberClassification</th>
+                        <th scope="col">school</th>
+                        <th scope="col">department</th>
+                        <th scope="col">edit/delete</th>
+                    </tr>
+                    </thead>
+                    <th:block th:if="${!members.isEmpty()}">
+                        <tbody>
+                        <tr th:each="member : ${members}">
+                            <td th:text="${member.memberId}">#</td>
+                            <td th:text="${member.id}">id</td>
+                            <td th:text="${member.pwd}">pwd</td>
+                            <td th:text="${member.nickname}">nickname</td>
+                            <td th:text="${member.gender}">gender</td>
+                            <td th:text="${member.email}">email</td>
+                            <td th:text="${member.registrationDate}">birth</td>
+                            <td th:if="${member.imageFile} != null"
+                                th:text="${member.imageFile.fileName}">
+                                imageName</td>
+                            <td th:if="${member.imageFile} == null">null</td>
+                            <td th:text="${member.memberClassification}">classification</td>
+                            <td th:text="${member.school.schoolName}">school_name</td>
+                            <td th:text="${member.department.departmentName}">department_name</td>
+                            <td>
+                                <a th:href="@{/admin/member/edit/{memberId}(memberId = ${member.memberId})}">
+                                    <img src="/img/admin/icon/pencil.svg">
+                                </a>
+
+                                <a th:href="@{/admin/member/delete/{memberId}(memberId = ${member.memberId})}">
+                                    <img src="/img/admin/icon/trash.svg">
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </th:block>
+                    <th:block th:if="${members.isEmpty()}">
+                        <tbody>
+                        <tr>
+                            <td colspan="15" style="text-align: center"><h3> 가입된 회원이 없습니다.</h3></td>
+                        </tr>
+                        </tbody>
+                    </th:block>
+                </table>
+            </row>
+            <row>
+                <form th:object="${memberSearch}">
+                    <legend>입력으로 멤버 조회하기</legend>
+                    <div class="input-group mb-2">
+                        <select class="form-select form-select-sm" th:field="*{field}" th:name="field">
+                            <option value="">검색 필드</option>
+                            <option value="id" th:text="id">id</option>
+                            <option value="name" th:text="nickname">nickname</option>
+                        </select>
+                        <input type="text" th:field="*{value}" class="form-control" th:name="value">
+
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary mb-2">검색</button>
+                    </div>
+                </form>
+
+                <table class="table table-striped table-hover">
+                        <thead>
+                        <tr class="table-primary">
+                            <th scope="col">#</th>
+                            <th scope="col">id</th>
+                            <th scope="col">pwd</th>
+                            <th scope="col">nickname</th>
+                            <th scope="col">gender</th>
+                            <th scope="col">email</th>
+                            <th scope="col">registrationDate</th>
+                            <th scope="col">imageName</th>
+                            <th scope="col">member_classification</th>
+                            <th scope="col">school</th>
+                            <th scope="col">department</th>
+                            <th scope="col">edit/delete</th>
+                        </tr>
+                        </thead>
+                    <th:block th:if="${!findMembers.isEmpty()}">
+                        <tbody>
+                        <tr th:each="member : ${findMembers}">
+                            <td th:text="${member.memberId}">#</td>
+                            <td th:text="${member.id}">id</td>
+                            <td th:text="${member.pwd}">pwd</td>
+                            <td th:text="${member.nickname}">nickname</td>
+                            <td th:text="${member.gender}">gender</td>
+                            <td th:text="${member.email}">email</td>
+                            <td th:text="${member.registrationDate}">registrationDate</td>
+                            <td th:if="${member.imageFile} != null"
+                                th:text="${member.imageFile.fileName}">
+                                imageName</td>
+                            <td th:if="${member.imageFile} == null">null</td>
+                            <td th:text="${member.memberClassification}">classification</td>
+                            <td th:text="${member.school.schoolName}">school_name</td>
+                            <td th:text="${member.department.departmentName}">department_name</td>
+                            <td>
+                                <a th:href="@{/admin/member/edit/{memberId}(memberId = ${member.memberId})}">
+                                    <img src="/img/admin/icon/pencil.svg">
+                                </a>
+                                /
+                                <a th:href="@{/admin/member/delete/{memberId}(memberId = ${member.memberId})}">
+                                    <img src="/img/admin/icon/trash.svg">
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </th:block>
+                    <th:block th:if="${findMembers.isEmpty()}">
+                        <tbody>
+                        <tr>
+                            <td colspan="15" style="text-align: center"><h3> 검색된 회원이 없습니다.</h3></td>
+                        </tr>
+                        </tbody>
+                    </th:block>
+                </table>
+            </row>
+        </div>
+    </div>
+</div>
+</body>
+</html>

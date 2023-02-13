@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/admin-index :: headSetting}">
+
+</head>
+<style>
+    .fieldError {
+        border-color: #bd2130;
+    }
+</style>
+
+<body>
+
+<div class="container-fluid">
+    <th:block th:replace="~{admin/admin-index :: headerFragment}">
+    </th:block>
+    <div class="row min-vh-100 ">
+        <th:block th:replace="~{admin/admin-index :: sidebarFragment}">
+        </th:block>
+
+        <div class="col w-100">
+            <section class="h-100 h-custom gradient-custom-2">
+                <div class="container py-2 h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col-12">
+                            <form role="form" th:action="@{/admin/member/edit/{memberId}(memberId = ${memberId})}" th:object="${memberForm}" method="post" enctype="multipart/form-data"
+                                  class="card card-registration card-registration-2" style="border-radius: 15px">
+                                <div class="card-body p-0">
+                                    <div class="row g-0">
+                                        <div class="col-lg-6">
+                                            <div class="p-2">
+                                                <h3 class="fw-normal mb-3" style="color: #4835d4;">기본 정보</h3>
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-2 pb-2">
+                                                        <div class="form-outline">
+                                                            <label class="form-label" th:for="id">아이디</label>
+                                                            <input type="hidden" th:field="*{memberId}"/>
+                                                            <input type="hidden" th:field="*{schoolId}"/>
+                                                            <input type="hidden" th:field="*{schoolName}"/>
+                                                            <input type="hidden" th:field="*{departmentId}"/>
+                                                            <input type="hidden" th:field="*{departmentName}"/>
+                                                            <input type="text" th:field="*{id}" placeholder="아이디를 입력하세요." th:value ="*{id}"
+                                                                   th:class="${#fields.hasErrors('id')}? 'form-control form-control-lg fieldError' : 'form-control form-control-lg'" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-2 pb-2">
+                                                        <div class="form-outline">
+                                                            <label class="form-label" th:for="pwd">비밀번호</label>
+                                                            <input type="password" th:field="*{pwd}" placeholder="비밀번호를 입력하세요."
+                                                                   th:class="${#fields.hasErrors('pwd')}? 'form-control form-control-lg fieldError' : 'form-control form-control-lg'">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-2 pb-2">
+                                                        <div class="form-outline">
+                                                            <label class="form-label" th:for="nickname">닉네임</label>
+                                                            <input type="text" th:field="*{nickname}" placeholder="닉네임을 입력하세요." th:value="*{nickname}"
+                                                                   th:class="${#fields.hasErrors('nickname')}? 'form-control form-control-lg fieldError': 'form-control form-control-lg'" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label" th:for="email">이메일</label>
+                                                        <input type="email" th:field="*{email}" th:value="*{email}" class="form-control form-control-lg" placeholder="이메일을 입력하세요">
+                                                    </div>
+                                                </div>
+                                                <div class="row align-items-center py-3">
+                                                    <div class="col-md-3 ps-5">
+                                                        <h6 class="mb-0">profile Image</h6>
+                                                    </div>
+                                                    <div class="col-md-9 pe-5">
+                                                        <input type="file" class="form-control form-control-lg" th:field="*{multipartFile}" name="file">
+                                                        <div class="small text-muted mt-2">Upload your profile Image. Max file size 10MB</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="btn btn-light btn-lg">
+                                                <input type="submit" name="edit" class="btn btn-light btn-lg" value="Edit">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<script>
+    const autoHyphen = (target) => {
+        target.value = target.value
+            .replace(/[^0-9]/g, '')
+            .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
+    }
+
+    function onSelectSchool() {
+        var school = document.getElementById("selectSchool").value;
+
+        $.ajax({
+            url: "/admin/member/ajax",
+            type: "POST",
+            data: JSON.stringify({
+                "schoolId": school
+            }),
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                var result = JSON.stringify(data)
+                var department = JSON.parse(result);
+
+                $('#selectDepartment').empty();
+                $('#selectDepartment').append('<option value=\"\">학과선택</option>');
+
+                $('#selectSubDepartment').empty();
+                $('#selectSubDepartment').append('<option value=\"\">학과선택</option>');
+
+                $.each(department, function (idx, val) {
+                    $('#selectDepartment').append('<option value = \"' + val.id + '\" text = \"' + val.departmentName + '\">' + val.departmentName + '</option>');
+                    $('#selectSubDepartment').append('<option value = \"' + val.id + '\" text = \"' + val.departmentName + '\">' + val.departmentName + '</option>');
+                });
+            },
+            error: function (request, status, error) {
+                console.log('code : ' + request.status + 'message : ' + request.responseText + 'error: ' + error);
+            }
+        });
+    }
+</script>
+</body>
+</html>

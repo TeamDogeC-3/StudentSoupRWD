@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/admin-index :: headSetting}">
+
+</head>
+<style>
+    .fieldError {
+        border-color: #bd2130;
+    }
+</style>
+
+<body>
+<div class="container-fluid">
+    <th:block th:replace="~{admin/admin-index :: headerFragment}">
+
+    </th:block>
+    <div class="row min-vh-100 ">
+        <th:block th:replace="~{admin/admin-index :: sidebarFragment}">
+        </th:block>
+        <div class="col w-100">
+            <section class="h-100 h-custom gradient-custom">
+                <div class="container py-2 h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col-12">
+                            <form role="form" action="/admin/school/new" th:object="${schoolForm}" method="post"
+                                  enctype="multipart/form-data"
+                                  class="card card-registration card-registration-2" style="border-radius: 15px">
+                                <div class="card-body p-0">
+                                    <div class="row g-0">
+                                        <div class="col-lg-6">
+                                            <div class="p-2">
+                                                <h3 class="fw-normal mb-3" style="color: #4835d4;">학과 정보</h3>
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-2 pb-2">
+                                                        <div class="form-outline">
+                                                            <label class="form-label" th:for="schoolName">학교 이름</label>
+                                                            <input type="text" th:field="*{schoolName}"
+                                                                   placeholder="학교 이름을 입력하세요."
+                                                                   th:class="${#fields.hasErrors('schoolName')}? 'form-control form-control-lg fieldError' : 'form-control form-control-lg'">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 mb-2 pb-2">
+                                                        <div class="form-outline">
+                                                            <label class="form-label"
+                                                                   th:for="shcoolCoordinate">좌표</label>
+                                                            <input type="text" th:field="*{schoolCoordinate}"
+                                                                   class="form-control form-control-lg"
+                                                                   placeholder="**.****,**.****">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 m-2 p-2 text-end">
+                                                        <div class="btn btn-light btn-sm">
+                                                            <input type="submit" name="signup"
+                                                                   class="btn btn-primary btn-sm"
+                                                                   value="학교 등록">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+</body>
+</html>
