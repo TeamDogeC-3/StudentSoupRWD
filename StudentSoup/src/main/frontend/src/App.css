@@ -13,9 +13,3 @@ body {
   background-size: cover;
   background-attachment: fixed;
 }
-
-@media screen and (max-width: 768px) {
-  body {
-    background-image: none;
-  }
-}
