@@ -1,14 +1,22 @@
-import React from 'react';
-import './mainNavbar.css';
+import './mainNavbar.scss';
 import { Link } from 'react-router-dom';
-import { Desktop, Mobile } from '../../mediaQuery';
+import { DesktopHeader, MobileHeader } from '../../mediaQuery';
 import mainLogo from '../../img/mainLogo.svg';
+import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 const mainNavbar = () => {
+  const [click, isClick] = useState<boolean>(false);
+
+  const handleClickMenu = (e: any) => {
+    isClick(!click);
+    console.log(click);
+  };
   return (
     <>
-      <Desktop>
-        <nav className="NavbarItems">
+      <DesktopHeader>
+        <nav className="navbar-items">
           <Link to="/" className="navbar-logo-links">
             <img src={mainLogo} className="navbar-logo" />
           </Link>
@@ -30,10 +38,33 @@ const mainNavbar = () => {
             </li>
           </ul>
         </nav>
-      </Desktop>
-      <Mobile>
-        <div>모바일 화면 입니다</div>
-      </Mobile>
+      </DesktopHeader>
+      <MobileHeader>
+        <nav className="mobile-navbar-items">
+          <Link to="/" className="navbar-logo-links">
+            <img src={mainLogo} className="navbar-logo" />
+          </Link>
+          <div className="mobile-nav-menu" onClick={handleClickMenu}>
+            <i className="mobile-nav-menu-icon">메뉴</i>
+          </div>
+          <ul className={click ? 'mobile-nav-menu-list active' : 'mobile-nav-menu-list'}>
+            <li>
+              <div className="mobile-nav-list">
+                <i className="mobile-nav-listItme">공지사항</i>
+                <FontAwesomeIcon icon={faAngleRight} className="mobile-nav-icons" />
+              </div>
+            </li>
+            <li className="mobile-nav-list">
+              <i className="mobile-nav-listItme">고객센터</i>
+              <FontAwesomeIcon icon={faAngleRight} className="mobile-nav-icons" />
+            </li>
+            <li className="mobile-nav-list">
+              <i className="mobile-nav-listItme">로그인</i>
+              <FontAwesomeIcon icon={faAngleRight} className="mobile-nav-icons" />
+            </li>
+          </ul>
+        </nav>
+      </MobileHeader>
     </>
   );
 };
