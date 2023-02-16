@@ -1,0 +1,131 @@
+.navbar-items {
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid #ff661d;
+  width: 100%;
+  height: 75px;
+  padding-left: 30px;
+  z-index: 9999;
+
+  .nav-menu {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    text-decoration: none;
+
+    .nav-links {
+      color: #000;
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 400;
+      white-space: nowrap;
+      width: 150px;
+      height: 75px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      i {
+        font-style: normal;
+        justify-content: center;
+      }
+      &:hover {
+        background-color: #ff661d;
+        color: white;
+        transition: all 0.2s ease-in-out;
+      }
+    }
+  }
+}
+
+.mobile-navbar-items {
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid #ff661d;
+  width: 100%;
+  height: 75px;
+  padding-left: 30px;
+  z-index: 9999;
+
+  .mobile-nav-menu {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    text-decoration: none;
+    justify-content: flex-start;
+
+    .mobile-nav-menu-icon {
+      color: #000;
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 400;
+      white-space: nowrap;
+      width: 75px;
+      height: 75px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      font-style: normal;
+      i {
+        font-style: normal;
+        justify-content: center;
+      }
+      &:hover {
+        background-color: #ff661d;
+        color: white;
+        transition: all 0.2s ease-in-out;
+      }
+    }
+  }
+  .mobile-nav-menu-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background: white;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    right: -100%;
+    opacity: 0;
+    align-items: stretch;
+    padding: 25px;
+    list-style: none;
+    margin: 0;
+    transition: 0.3s ease-in-out;
+    border-radius: 15px;
+    font-style: normal;
+  }
+
+  .mobile-nav-menu-list.active {
+    right: 0;
+    top: 10%;
+    opacity: 1;
+    z-index: 9999;
+    transition: 0.3s ease-in-out;
+
+    .mobile-nav-list {
+      font-size: 1.875rem;
+      font-style: normal;
+      display: flex;
+      padding: 10px;
+      justify-content: space-between;
+
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+
+      .mobile-nav-listItem {
+        font-style: normal;
+      }
+    }
+  }
+}
