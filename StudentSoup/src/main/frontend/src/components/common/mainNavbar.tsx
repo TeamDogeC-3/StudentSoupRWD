@@ -1,5 +1,5 @@
 import React from 'react';
-import './mainNavbar.css';
+import './mainNavbar.scss';
 import { Link } from 'react-router-dom';
 import { Desktop, Mobile } from '../../mediaQuery';
 import mainLogo from '../../img/mainLogo.svg';
