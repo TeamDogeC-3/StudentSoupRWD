@@ -1,0 +1,75 @@
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+
+  .sfoo-image {
+    height: 10vw;
+    max-height: 80px;
+  }
+  p {
+    font-size: calc(24px + 1.3vw);
+    font-weight: 400;
+    color: #fff;
+    padding-top: 24px;
+    text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.6);
+    text-align: center;
+  }
+  .link-texts {
+    font-size: calc(34px + 2vw);
+    font-weight: 700;
+    color: white;
+    padding-top: 19px;
+    text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.6);
+    padding-bottom: 31px;
+    text-align: center;
+  }
+}
+
+.school_search_bar {
+  background-color: #fff;
+  max-width: 684px;
+  width: 90vw;
+  height: 60px;
+  border-radius: 5px;
+  img {
+    position: relative;
+    top: 9%;
+    padding-left: 16px;
+    padding-right: 12px;
+  }
+  input {
+    max-width: calc(684px - 150px);
+    width: calc(90vw - 150px);
+    height: 80%;
+    font-weight: 400;
+    border: none;
+    font-size: 22px;
+    &:focus {
+      outline: none;
+    }
+  }
+  button {
+    width: 94px;
+    height: 60px;
+    border-radius: 0px 5px 5px 0px;
+    border: none;
+    background-color: #ff611d;
+    font-size: 25px;
+    font-weight: 400;
+    color: white;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .school_search_bar {
+    input {
+      font-size: calc(0.8rem + 1.3vw);
+    }
+    button {
+      font-size: calc(0.8rem + 1.3vw);
+    }
+  }
+}
