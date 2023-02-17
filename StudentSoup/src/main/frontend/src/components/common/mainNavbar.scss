@@ -44,6 +44,7 @@
 .mobile-navbar-items {
   background-color: #ffffff;
   display: flex;
+  position: fixed;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.2);
@@ -92,7 +93,7 @@
     width: 100%;
     height: auto;
     position: absolute;
-    top: 0;
+    top: 10%;
     right: -100%;
     opacity: 0;
     align-items: stretch;
@@ -106,7 +107,7 @@
 
   .mobile-nav-menu-list.active {
     right: 0;
-    top: 10%;
+    top: 120%;
     opacity: 1;
     z-index: 9999;
     transition: 0.3s ease-in-out;
@@ -118,13 +119,13 @@
       padding: 10px;
       justify-content: space-between;
 
+      i {
+        font-style: normal;
+      }
+
       &:hover {
         cursor: pointer;
         text-decoration: underline;
-      }
-
-      .mobile-nav-listItem {
-        font-style: normal;
       }
     }
   }
